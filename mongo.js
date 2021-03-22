@@ -35,9 +35,7 @@ else if (process.argv.length === 3) {
     .find({})
     .then(res => {
       console.log('phonebook:')
-      res.forEach(person => {
-        console.log(person.name, person.number)
-      })
+      res.map( person => console.log(person.name, person.number) )
       mongoose.connection.close()
     })
 
