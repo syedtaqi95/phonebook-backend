@@ -10,14 +10,14 @@ GET http://localhost:3001/api/persons
 GET http://localhost:3001/api/persons/100
 
 ###
-DELETE http://localhost:3001/api/persons/3
+DELETE http://localhost:3001/api/persons/605a186d8db8d000158d47b2
 
 ###
 POST http://localhost:3001/api/persons HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Syed Taqi Haider",
+    "name": "Dave",
     "number": "02384236487236"
 }
 
