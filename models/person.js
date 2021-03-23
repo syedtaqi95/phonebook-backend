@@ -13,8 +13,12 @@ const personSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
+    minLength: 3
   },
-  number: String,
+  number: {
+    type: String,
+    minLength: 8,
+  }
 })
 
 // Apply unique validator
