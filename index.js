@@ -46,10 +46,6 @@ app.delete("/api/persons/:id", (request, response) => {
   }
 })
 
-const generateID = () => {
-  return Math.floor(Math.random() * 200)
-}
-
 app.post("/api/persons", (request, response) => {
   const body = request.body
 
@@ -59,20 +55,15 @@ app.post("/api/persons", (request, response) => {
       error: 'name and/or number missing'
     })
   }
-  else if (phonebook.some(p => p.name === body.name)) {
-    return response.status(409).json({
-      error: 'name already exists in phonebook'
-    })
-  }
 
-  const entry = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateID()
-  }
+  })
 
-  phonebook = phonebook.concat(entry)
-  response.json(entry)
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 const PORT = process.env.PORT
