@@ -1,4 +1,4 @@
-mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
 if (![3, 5].some(x => x === process.argv.length)) {
   console.log('Usage: node mongo.js <password> [<Name> <Number>]')
@@ -24,7 +24,7 @@ if (process.argv.length === 5) {
     number: process.argv[4],
   })
 
-  person.save().then(res => {
+  person.save().then(() => {
     console.log(`added ${person.name} ${person.number} to phonebook`)
     mongoose.connection.close()
   })
