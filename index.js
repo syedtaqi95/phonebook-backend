@@ -12,25 +12,30 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 app.use(cors())
 app.use(express.static('build'))
 
-app.get("/info", (request, response) => {
+app.get("/info", (request, response, next) => {
   const current_time = new Date()
-  Person.find().count((err, count) => {
-    response.send(
-      `<p> Phonebook has info for ${count} people </p>
-      <p> ${current_time} </p>`
-    )
-  })
+  Person.find()
+    .count((err, count) => {
+      response.send(
+        `<p> Phonebook has info for ${count} people </p>
+        <p> ${current_time} </p>`
+      )
+    })
+    .catch(err => next(err))
 })
 
-app.get("/api/persons", (request, response) => {
-  Person.find({}).then(phonebook => {
-    response.json(phonebook)
-  })
+app.get("/api/persons", (request, response, next) => {
+  Person.find({})
+    .then(phonebook => {
+      response.json(phonebook)
+    })
+    .catch(err => next(err))
 })
 
-app.get("/api/persons/:id", (request, response) => {
+app.get("/api/persons/:id", (request, response, next) => {
   Person.findById(request.params.id)
     .then(person => response.json(person))
+    .catch(err => next(err))
 })
 
 app.delete("/api/persons/:id", (request, response, next) => {
